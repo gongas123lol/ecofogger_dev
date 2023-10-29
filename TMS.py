@@ -225,7 +225,7 @@ def setMinimumHumidity():
                     clear_display()
                     setInterval()
                 
-            elif key == "3"
+            elif key == "3":
                 if setting_mode:
                     clear_display()
                     setMinimumHumidity()
