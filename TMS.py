@@ -10,7 +10,7 @@
     oled = SSD1306_I2C(128, 64, i2c)
 
     # Initialize the DHT22 sensor
-    dht_sensor = dht.DHT22(Pin(2))  # Replace with the appropriate GPIO pin for the DHT22 sensor
+    dht_sensor = dht.DHT22(Pin(0))  # Replace with the appropriate GPIO pin for the DHT22 sensor
 
     # Initialize the 5V relay for controlling the 12V pump
     relay = Pin(16, Pin.OUT)
