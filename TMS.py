@@ -209,7 +209,7 @@ def setMinimumHumidity():
                 if setting_mode:
                     setting_mode = False
                     update_display()
-            else:
+                else:
                 setting_mode = True
                 update_display()
             elif key == "*":
