@@ -1,0 +1,97 @@
+@page
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+        }
+
+            .form-container form {
+                margin: 0 10px; /* Add some margin to separate the forms */
+            }
+    </style>
+</head>
+<body>
+    <h1>EcoFogger</h1>
+
+    <p>Current humidity: {humidyVal}</p>
+    <p>Current Temperature: {tempVal}</p>
+    <p>Ñext Mist in: {mistTime}</p>
+    <p>Current humidity: {humidyVal}</p>
+    <p> Esta linha irá dizer o que estamos a fazer agora, tipo set na humidade, etc</p>
+
+    <div class="form-container">
+        <form action="./1">
+            <input type="submit" value="1" />
+        </form>
+
+        <form action="./2">
+            <input type="submit" value="2" />
+        </form>
+
+        <form action="./3">
+            <input type="submit" value="3" />
+        </form>
+    </div>
+
+
+    <div class="form-container">
+        <form action="./4">
+            <input type="submit" value="4" />
+        </form>
+
+        <form action="./5">
+            <input type="submit" value="5" />
+        </form>
+
+        <form action="./6">
+            <input type="submit" value="6" />
+        </form>
+    </div>
+
+
+    <div class="form-container">
+        <form action="./7">
+            <input type="submit" value="7" />
+        </form>
+
+        <form action="./8">
+            <input type="submit" value="8" />
+        </form>
+
+        <form action="./9">
+            <input type="submit" value="9" />
+        </form>
+    </div>
+    <p></p>
+    <div class="form-container">
+        <form action="./settimer">
+            <input type="submit" value="Set Timer" />
+        </form>
+
+        <form action="./humidity">
+            <input type="submit" value="Set Humidity" />
+        </form>
+
+        <form action="./mistinterval">
+            <input type="submit" value="Set misting Interval" />
+        </form>
+    </div>
+    <p></p>
+    <form action="./ok">
+        <input type="submit" value="OK!" />
+    </form>
+
+  
+</body>
+</html>
