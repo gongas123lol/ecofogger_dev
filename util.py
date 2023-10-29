@@ -3,7 +3,8 @@ from ssd1306 import SSD1306_I2C
 import dht
 import time
 
-
+#_____________________________________________________________________
+# keypad decoding function
 def read_keypad():
     keys = [None, None]
     for i, row in enumerate(rows):
@@ -13,10 +14,12 @@ def read_keypad():
                 keys = [i, j]
         row.on()
     return keys
-
+#_____________________________________________________________________
+#converts the time HH:MM into SS
 def time2seconds(hh, mm):
     return (hh*60 + mm) * 60
-
+#_____________________________________________________________________
+#updates the display with the usefull info
 def update_display():
     oled.fill(0)
     oled.text("Temp:", str(temperature), "ºC" 0, 0)
@@ -36,3 +39,4 @@ def update_display():
         oled.text("Pump: OFF", 80, 48)
 
     oled.show()
+#_____________________________________________________________________
