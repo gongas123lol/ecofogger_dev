@@ -158,6 +158,6 @@ def serve(connection):
             pico_led.off()
             state = 'OFF'
         temperature = pico_temp_sensor.temp
-        html = webpage(temperature, state)
+        html = webpage(humidity, temperature, mistTime, toBeDisplayed )
         client.send(html)
         client.close()
