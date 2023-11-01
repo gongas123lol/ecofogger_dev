@@ -22,7 +22,7 @@ def clear_display():
 def update_display1():
     
     oled.fill(0)
-    oled.text("Hello World", 0, 0)
+    oled.text("Hello      ", 0, 0)
     oled.text("this is a test!", 0, 16)
 
     oled.show()
@@ -31,7 +31,7 @@ def update_display1():
 def update_display2():
    
     oled.fill(0)
-    oled.text("Hello World", 0, 0)
+    oled.text("     World", 0, 0)
     oled.text("this is a test!", 0, 16)
 
     oled.show()
