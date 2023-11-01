@@ -49,6 +49,7 @@ def scankeys():
                 utime.sleep(0.01)
                 if col_pins[col].value() == 1:
                     # Debounced button press, return the key
+                    print(matrix_keys[row][col] )
                     return matrix_keys[row][col]
             
             row_pins[row].low()
@@ -76,7 +77,7 @@ oled.text_encoding = 'utf-8'
 
 kpress = 'X'
 timer = 3600
-misting_interval = 1
+misting_interval = 10
 minimum_humidity = 30
 
 pump_active = False
@@ -208,7 +209,7 @@ print("get ready")
 while True:
     timeManaging()
    
-    if Time_to_mist:
+    if Time_to_mist: 
         Mist()
         MistScreen()
 
