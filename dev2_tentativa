@@ -76,12 +76,13 @@ oled.text_encoding = 'utf-8'
 
 kpress = 'X'
 timer = 3600
-misting_interval = 15
+misting_interval = 1
 minimum_humidity = 30
 
 pump_active = False
 mist_current_time = 0
 start_time = utime.ticks_ms()
+current_time = utime.ticks_ms()
 
 #Startup code that contains the initial code
 def InitDevice():
@@ -107,8 +108,7 @@ def mainMenu():
     oled.show()
     
     kpress = scankeys()
-    print(kpress)
-    print(kpress == '#')
+   
     if kpress == '#':
         setting_mode = True
         
@@ -139,6 +139,10 @@ def SettingMenu():
     elif kpress == '3':
         mist_current_time = GetValuesScreen()
     
+def MistScreen():
+        oled.fill(0)
+        oled.text("Misting...",0,16)
+        oled.show()
     
 def GetValuesScreen():
     
@@ -154,7 +158,6 @@ def GetValuesScreen():
         oled.text("done,press'#'", 0, 32)
         oled.text(current, 0, 48)
         oled.text("* To Exit", 0, 64)
-    
         oled.show()
         utime.sleep(0.1)
         kpress = scankeys()
@@ -169,15 +172,48 @@ def GetValuesScreen():
             current = current + kpress
             
     return current
+
+def min2MS(input):
+    return (input * 60) * 1000
+
+def Mist():
+    a = 2
+    b = a + a
+    
+
+
+def timeManaging():
+    global current_time
+    global start_time
+    global misting_interval
+    global Time_to_mist
+    
+    current_time = utime.ticks_ms()
+    
+    if current_time > start_time + min2MS(misting_interval):
+        start_time = current_time
+        Time_to_mist = True
+        
+
 ###############MAIN CODE##########################
+#init portion
 setting_mode = False
+Time_to_mist = False
+misting_tip = False #"deixa"
 InitDevice()
+print("get ready")
+#_thread.start_new_thread(timeManagingCore1, ())
+
+#main loop
 while True:
+    timeManaging()
    
+    if Time_to_mist:
+        Mist()
+        MistScreen()
 
     if not setting_mode:
         mainMenu()
-       
     else:
         SettingMenu()
     
