@@ -44,6 +44,7 @@ while True:
     update_display1()
     utime.sleep(1)
     update_display2()
+    utime.sleep(1)
     
     
 
