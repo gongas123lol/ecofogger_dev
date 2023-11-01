@@ -41,21 +41,20 @@ for x in range(0,3):
     
       
 def scankeys():
-    
-    
     for row in range(4):
-          for col in range(3):
-               row_pins[row].high()
-               if col_pins[col].value() == 1:
-                   return matrix_keys[row][col]
-                   print("You have pressed:", kpress)
-                   
-               
-               row_pins[row].low()
+        for col in range(3):
+            row_pins[row].high()
+            if col_pins[col].value() == 1:
+                # Wait for a short debounce time (e.g., 10ms) and check the value again
+                utime.sleep(0.01)
+                if col_pins[col].value() == 1:
+                    # Debounced button press, return the key
+                    return matrix_keys[row][col]
+            
+            row_pins[row].low()
 
     utime.sleep(0.05)
-    return('X')
-
+    return 'X'
  
 
 
@@ -79,17 +78,14 @@ kpress = 'X'
 timer = 3600
 misting_interval = 15
 minimum_humidity = 30
-setting_mode = False
+
 pump_active = False
 mist_current_time = 0
 start_time = utime.ticks_ms()
 
 #Startup code that contains the initial code
 def InitDevice():
-    
-    
-        
-        
+           
     oled.fill(0)
     oled.text("ECOFOGGER", 0, 0)
     oled.text("Your Pets",0,16)
@@ -97,15 +93,13 @@ def InitDevice():
     oled.text("Initiating...",0,48)
     oled.show()
     
-
-    
-
     utime.sleep(2)
     
     oled.fill(0)
     oled.show()
 
 def mainMenu():
+    global setting_mode
     read_sensor_data()
     oled.fill(0)
     oled.text("Temp:{}°C".format(temperature), 0, 0)
@@ -114,24 +108,28 @@ def mainMenu():
     
     kpress = scankeys()
     print(kpress)
-    
+    print(kpress == '#')
     if kpress == '#':
         setting_mode = True
         
     utime.sleep(0.1)
     
 def SettingMenu():
-    
+    global setting_mode
+    global kpress
     oled.fill(0)
     
-    oled.text("1 - Set Timer", 0, 48)
-    oled.text("2 - Set Humidity", 0, 56)
-    oled.text("3 - Set Interval", 0, 64)
-    oled.text("* To Exit", 0, 72)
+    oled.text("1 - Set Timer", 0, 0)
+    oled.text("2 - Set Humidity", 0, 16)
+    oled.text("3 - Set Interval", 0, 32)
+    oled.text("* To Exit", 0, 64)
     
     oled.show()
     utime.sleep(0.1)
     kpress = scankeys()
+     
+   
+        
     if kpress == '*':
         setting_mode = False
     elif kpress == '1':
@@ -143,37 +141,45 @@ def SettingMenu():
     
     
 def GetValuesScreen():
-        
+    
+    global setting_mode
+    global kpress
     current = ""
     done = False
     while not done:
         oled.fill(0)
         
-        oled.text("Input value,del->*", 0, 48)
-        oled.text("when done, press '#'", 0, 56)
-        oled.text(current, 0, 64)
-        oled.text("* To Exit", 0, 72)
+        oled.text("Input value", 0, 0)
+        oled.text("del->*, when",0,16)
+        oled.text("done,press'#'", 0, 32)
+        oled.text(current, 0, 48)
+        oled.text("* To Exit", 0, 64)
     
         oled.show()
         utime.sleep(0.1)
         kpress = scankeys()
+        
         if kpress == '*':
-            current = current[:len(Str)-1]
+            current = current[:len(current)-1]
         elif kpress == '#':
             done = True
-        elif kpress == 'K':
+        elif kpress == 'X':
             done = False #so pao para isto n se merdar
-        elif kpress != 'K':
+        elif kpress != 'X':
             current = current + kpress
             
     return current
 ###############MAIN CODE##########################
+setting_mode = False
 InitDevice()
 while True:
    
+
     if not setting_mode:
         mainMenu()
+       
     else:
         SettingMenu()
+    
 
 
